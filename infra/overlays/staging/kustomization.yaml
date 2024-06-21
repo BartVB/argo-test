@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: argocd
 
 resources:
-  - ../../applications/cert-manager/
+  - ../../applications/cert-manager/Chart.yaml
   #- ../../../argo-apps/base/argocd-helm.yaml
   #- ../../../argo-apps/base/argocd-rollout-helm.yaml
   # - ../../../argo-apps/base/argocd-image-updater-helm.yaml
