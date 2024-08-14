@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: cluster-addons
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: 'https://github.com/BartVB/argo-test.git'
+        revision: HEAD
+        directories:
+          - path: 'addons/*'
+  template:
+    metadata:
+      name: '{{path.basename}}'
+    spec:
+      project: default
+      source:
+        repoURL: 'https://github.com/BartVB/argo-test.git'
+        targetRevision: HEAD
+        chart: 'addons/{{path.basename}}'
+        helm:
+          valueFiles:
+            - 'addons/{{path.basename}}/values-development.yaml'  # Adapt this for each environment
+      destination:
+        server: 'https://kubernetes.default.svc'
+        namespace: '{{path.basename}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
