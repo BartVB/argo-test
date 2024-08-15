@@ -13,11 +13,6 @@ cert-manager:
   podDisruptionBudget:
     enabled: true
 
-  prometheus:
-    servicemonitor:
-      enabled: true
-      labels:
-        prometheus.io/scrap-with: kube-prometheus-stack
   extraArgs:
     - --logging-format=json
   webhook:
