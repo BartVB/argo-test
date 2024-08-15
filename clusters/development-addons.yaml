@@ -20,7 +20,7 @@ spec:
         path: 'addons/{{path.basename}}'
         helm:
           valueFiles:
-            - 'addons/{{path.basename}}/values-development.yaml'  # Adapt this for each environment
+            - 'values-development.yaml'  # Adapt this for each environment
       destination:
         server: 'https://kubernetes.default.svc'
         namespace: '{{path.basename}}'
