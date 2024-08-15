@@ -17,8 +17,7 @@ spec:
       project: default
       source:
         repoURL: 'https://github.com/BartVB/argo-test.git'
-        targetRevision: HEAD
-        chart: 'addons/{{path.basename}}'
+        path: 'addons/{{path.basename}}'
         helm:
           valueFiles:
             - 'addons/{{path.basename}}/values-development.yaml'  # Adapt this for each environment
