@@ -1,4 +1,3 @@
-{{- if .Values.traefik.enabled }}
 apiVersion: v2
 name: traefik
 description: A Helm chart for Kubernetes
@@ -28,4 +27,3 @@ dependencies:
     version: 20.8.0
     repository: https://traefik.github.io/charts
     alias: traefik
-{{- end }}

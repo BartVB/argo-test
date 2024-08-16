@@ -10,6 +10,10 @@ spec:
         revision: HEAD
         directories:
           - path: 'addons/*'
+          - path: 'addons/dont-install-this-application'  # Example for skipping an app
+            exclude: true
+          - path: 'addons/cert-manager'  # Example for skipping an app
+            exclude: true
   template:
     metadata:
       name: '{{path.basename}}'
@@ -25,6 +29,8 @@ spec:
         server: 'https://kubernetes.default.svc'
         namespace: '{{path.basename}}'
       syncPolicy:
+        syncOptions:
+          - CreateNamespace = true
         automated:
           prune: true
           selfHeal: true
