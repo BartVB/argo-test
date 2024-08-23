@@ -3,8 +3,8 @@ kong:
   env:
     proxy_listen: 0.0.0.0:8000, 0.0.0.0:8443 ssl http2
     real_ip_header: proxy_protocol
-    # Not used; the firewall limits incoming traffic on nodePorts to traffic from the loadbalancer.
-    # trusted_ips: 167.235.218.206,2a01:4f8:c011:fc3::1
+    # The firewall limits incoming traffic on nodePorts to traffic from the loadbalancer.
+    trusted_ips: 0.0.0.0/0,::/0
 
   proxy:
     externalTrafficPolicy: Local
