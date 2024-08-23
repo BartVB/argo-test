@@ -3,6 +3,7 @@ kind: Ingress
 metadata:
   name: guestbook-ui
   namespace: guestbook
+  cert-manager.io/cluster-issuer: letsencrypt-staging-issuer
 spec:
   ingressClassName: kong
   rules:
