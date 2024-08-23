@@ -30,7 +30,7 @@ spec:
         namespace: '{{path.basename}}'
       syncPolicy:
         syncOptions:
-          - CreateNamespace = true
+          - CreateNamespace: true
         automated:
           prune: true
           selfHeal: true
