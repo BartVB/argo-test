@@ -10,6 +10,8 @@ kong:
     externalTrafficPolicy: Local
     annotations:
       load-balancer.hetzner.cloud/name: kong-lb
+      # https://www.bitahoy.com/blog/post/how-kubernetes-violates-the-principle-of-least-surprise-when-used-with-proxy-protocol-on-hetzner-load-balancers
+      load-balancer.hetzner.cloud/hostname: kong.bokt.nl
       load-balancer.hetzner.cloud/location: fsn1
       load-balancer.hetzner.cloud/algorithm-type: least_connections
       load-balancer.hetzner.cloud/uses-proxyprotocol: true
