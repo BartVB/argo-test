@@ -19,6 +19,6 @@ spec:
                 port:
                   number: 80
   tls:
-  - hosts:
-    - guestbook.kong.bokt.nl
-  secretName: guestbook-tls
+    - hosts:
+      - guestbook.kong.bokt.nl
+      secretName: guestbook-tls
