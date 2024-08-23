@@ -1,15 +1,16 @@
+---
 env:
   proxy_listen: 0.0.0.0:8000, 0.0.0.0:8443 ssl http2
   real_ip_header: proxy_protocol
   # Not used; the firewall limits incoming traffic on nodePorts to traffic from the loadbalancer.
-  #trusted_ips: 167.235.218.206,2a01:4f8:c011:fc3::1
+  # trusted_ips: 167.235.218.206,2a01:4f8:c011:fc3::1
 
 proxy:
   externalTrafficPolicy: Local
   annotations:
-    load-balancer.hetzner.cloud/name": "kong-lb",
-    load-balancer.hetzner.cloud/location": "fsn1",
-    load-balancer.hetzner.cloud/node-selector": "node-role.kubernetes.io/worker",
+    load-balancer.hetzner.cloud/name": "kong-lb"
+    load-balancer.hetzner.cloud/location": "fsn1"
+    load-balancer.hetzner.cloud/node-selector": "node-role.kubernetes.io/worker"
     load-balancer.hetzner.cloud/algorithm-type: least_connections
     load-balancer.hetzner.cloud/uses-proxyprotocol: true
     # Not used yet
@@ -40,8 +41,8 @@ resources:
     cpu: 250m
     memory: 500M
 
-tolerations: 
-  - key:  kubernetes.azure.com/scalesetpriority
+tolerations:
+  - key: kubernetes.azure.com/scalesetpriority
     operator: "Equal"
     value: spot
     effect: NoSchedule
