@@ -4,7 +4,7 @@ metadata:
   name: guestbook-ui
   namespace: guestbook
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-staging-issuer
+    cert-manager.io/cluster-issuer: letsencrypt-prod-issuer
 spec:
   ingressClassName: kong
   rules:
