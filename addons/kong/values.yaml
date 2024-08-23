@@ -13,8 +13,7 @@ kong:
       load-balancer.hetzner.cloud/location: fsn1
       load-balancer.hetzner.cloud/algorithm-type: least_connections
       load-balancer.hetzner.cloud/uses-proxyprotocol: true
-      load-balancer.hetzner.cloud/node-selector: -node-role.kubernetes.io/control
-      # Exclude nodes from the LB with: node.kubernetes.io/exclude-from-external-load-balancers: "true"
+      load-balancer.hetzner.cloud/node-selector: -node-role.kubernetes.io/control-plane
       # Not used yet
       external-dns.alpha.kubernetes.io/hostname: kong.bokt-eu1
 
