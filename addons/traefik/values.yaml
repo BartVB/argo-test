@@ -1,4 +1,4 @@
 traefik:
   ingressClass:
     enabled: true
-    isDefaultClass: true
+    isDefaultClass: false
