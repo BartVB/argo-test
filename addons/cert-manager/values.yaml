@@ -1,4 +1,5 @@
 cert-manager:
+  chartversion: 1.14.4
   installCRDs: true
 
   # resources:
