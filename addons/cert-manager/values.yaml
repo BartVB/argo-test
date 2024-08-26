@@ -1,23 +1,23 @@
-cert-manager:
-  chartversion: "1.14.4"
-  installCRDs: true
+---
+chartversion: "1.14.4"
+installCRDs: true
 
-  # resources:
-  #   requests:
-  #     cpu: 75m
-  #     memory: 200Mi
-  #   limits:
-  #     cpu: 75m
-  #     memory: 200Mi
+# resources:
+#   requests:
+#     cpu: 75m
+#     memory: 200Mi
+#   limits:
+#     cpu: 75m
+#     memory: 200Mi
 
-  podDisruptionBudget:
-    enabled: true
+podDisruptionBudget:
+  enabled: true
 
+extraArgs:
+  - --logging-format=json
+webhook:
   extraArgs:
     - --logging-format=json
-  webhook:
-    extraArgs:
-      - --logging-format=json
-  cainjector:
-    extraArgs:
-      - --logging-format=json
+cainjector:
+  extraArgs:
+    - --logging-format=json
