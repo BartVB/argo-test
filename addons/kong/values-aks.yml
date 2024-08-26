@@ -1,0 +1,98 @@
+env:
+  proxy_listen: 0.0.0.0:8000, 0.0.0.0:8443 ssl http2
+  real_ip_header: x-forwarded-for
+  real_ip_recursive: "on"
+  trusted_ips: 10.2.0.0/16,192.168.255.0/24,173.245.48.0/20,173.245.48.0/20,103.21.244.0/22,103.22.200.0/22,103.31.4.0/22,141.101.64.0/18,108.162.192.0/18,190.93.240.0/20,188.114.96.0/20,197.234.240.0/22,198.41.128.0/17,162.158.0.0/15,104.16.0.0/12,172.64.0.0/13,131.0.72.0/22,2400:cb00::/32,2606:4700::/32,2803:f800::/32,2405:b500::/32,2405:8100::/32,2a06:98c0::/29,2c0f:f248::/32
+  upstream_keepalive_idle_timeout: "2"
+  upstream_keepalive_pool_size: "0"
+ # trusted_ips: 0.0.0.0/0,::/0
+
+proxy:
+  externalTrafficPolicy: Local
+  loadBalancerIP: 20.101.2.59
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-resource-group: mc_communities_blomstra-communities-eu-west_westeurope 
+
+dblessConfig:
+  admissionWebhook:
+    enabled: false
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 1000Mi
+    requests:
+      cpu: 350m
+      memory: 750Mi
+
+updateStrategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxSurge: "50%"
+    maxUnavailable: "0%"
+
+resources:
+  limits:
+    cpu: 1000m
+    memory: 1G
+  requests:
+    cpu: 250m
+    memory: 500M
+
+tolerations: 
+  - key:  kubernetes.azure.com/scalesetpriority
+    operator: "Equal"
+    value: spot
+    effect: NoSchedule
+
+replicaCount: 3
+
+autoscaling:
+  enabled: true
+  minReplicas: 3
+  maxReplicas: 7
+  behavior: {}
+  ## targetCPUUtilizationPercentage only used if the cluster doesn't support autoscaling/v2 or autoscaling/v2beta
+  targetCPUUtilizationPercentage:
+  ## Otherwise for clusters that do support autoscaling/v2 or autoscaling/v2beta, use metrics
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+
+podDisruptionBudget:
+  enabled: true
+  # Uncomment only one of the following when enabled is set to true
+  # maxUnavailable: "50%"
+  minAvailable: "33%"
+
+podSecurityPolicy:
+  enabled: false
+
+serviceMonitor:
+  # Specifies whether ServiceMonitor for Prometheus operator should be created
+  # If you wish to gather metrics from a Kong instance with the proxy disabled (such as a hybrid control plane), see:
+  # https://github.com/Kong/charts/blob/main/charts/kong/README.md#prometheus-operator-integration
+  enabled: true
+  interval: 10s
+  namespace: kong
+  labels:
+    release: lke-monitor
+
+extraObjects:
+  - apiVersion: configuration.konghq.com/v1
+    kind: KongClusterPlugin
+    metadata:
+      name: prometheus
+      annotations:
+        kubernetes.io/ingress.class: kong
+      labels:
+        global: "true"
+    config:
+      per_consumer: false
+      bandwidth_metrics: true
+      latency_metrics: true
+      status_code_metrics: true
+    plugin: prometheus
