@@ -1,4 +1,4 @@
-component: external-dns
+component: kong
 chart: kong
 chartURL: https://charts.konghq.com
 chartVersion: 2.16.5

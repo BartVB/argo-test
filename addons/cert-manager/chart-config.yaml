@@ -1,4 +1,4 @@
-component: external-dns
+component: cert-manager
 chart: cert-manager
 chartURL: https://charts.jetstack.io
 chartVersion: 1.14.4
