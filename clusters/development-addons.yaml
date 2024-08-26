@@ -14,9 +14,6 @@ spec:
               revision: HEAD
               files:
                 - path: 'addons/*/chart-config.yaml'
-                - path: 'addons/metrics-server/chart-config.yaml'
-                  exclude: true
-
               values:
                 selector: '{{path.basename}}'
           - git:
@@ -26,6 +23,10 @@ spec:
                 - path: 'addons/*/chart-config-development.yaml'
               values:
                 selector: '{{path.basename}}'
+      selector:
+        matchExpressions:
+          - key: disabled
+            operator: DoesNotExist
   template:
     metadata:
       name: '{{component}}'
