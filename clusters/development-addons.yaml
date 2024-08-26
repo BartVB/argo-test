@@ -5,32 +5,54 @@ metadata:
   namespace: argocd
 spec:
   generators:
-    - git:
-        repoURL: 'https://github.com/BartVB/argo-test.git'
-        revision: HEAD
-        directories:
-          - path: 'addons/*'
-          - path: 'addons/dont-install-this-application'  # Example for skipping an app
-            exclude: true
-          - path: 'addons/cert-manager'  # Example for skipping an app
-            exclude: true
+    - merge:
+        mergeKeys:
+          - values.selector
+        generators:
+          - git:
+              repoURL: 'https://github.com/BartVB/argo-test.git'
+              revision: HEAD
+              files:
+                - path: 'addons/*/chart-config.yaml'
+              values:
+                selector: '{{path.basename}}'
+          - git:
+              repoURL: 'https://github.com/BartVB/argo-test.git'
+              revision: HEAD
+              files:
+                - path: 'addons/*/chart-config-development.yaml'
+              values:
+                selector: '{{path.basename}}'
   template:
     metadata:
-      name: '{{path.basename}}'
+      name: '{{component}}'
     spec:
       project: default
-      source:
-        repoURL: 'https://github.com/BartVB/argo-test.git'
-        path: 'addons/{{path.basename}}'
-        helm:
-          valueFiles:
-            - 'values-development.yaml'  # Adapt this for each environment
+      sources:
+        # Sample Helm Chart
+        - repoURL: "{{chartURL}}"
+          chart: "{{chart}}"
+          targetRevision: "{{chartVersion}}"
+          path: "{{chartPath}}"
+          helm:
+            # Helm releaseName resets the name of the installation
+            # in the target cluster back to the expected name vs.
+            # the ArgoCD Application CRD name which prepends the cluster name
+            releaseName: "{{component}}"
+            ignoreMissingValueFiles: true
+            valueFiles:
+              - "$valuesRepo/addons/{{component}}/values.yaml"
+              - "$valuesRepo/addons/{{component}}/values-development.yaml"
+        # Values overrides
+        - repoURL: "https://github.com/BartVB/argo-test.git"
+          targetRevision: "{{valuesRevision}}"
+          ref: valuesRepo
       destination:
         server: 'https://kubernetes.default.svc'
-        namespace: '{{path.basename}}'
+        namespace: '{{component}}'
       syncPolicy:
         syncOptions:
-          - CreateNamespace: true
+        - CreateNamespace=true
         automated:
           prune: true
           selfHeal: true
