@@ -1,6 +1,6 @@
-kong:
-  autoscaling:
-    enabled: true
-    # Make it easier to test/debug
-    minReplicas: 1
-    maxReplicas: 1
+---
+autoscaling:
+  enabled: true
+  # Make it easier to test/debug
+  minReplicas: 1
+  maxReplicas: 1
