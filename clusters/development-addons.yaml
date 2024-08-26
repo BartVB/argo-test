@@ -14,6 +14,9 @@ spec:
               revision: HEAD
               files:
                 - path: 'addons/*/chart-config.yaml'
+                - path: 'addons/metrics-server/chart-config.yaml'
+                  exclude: true
+
               values:
                 selector: '{{path.basename}}'
           - git:
