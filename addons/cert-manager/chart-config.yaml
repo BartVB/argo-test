@@ -4,3 +4,4 @@ chartURL: https://charts.jetstack.io
 chartVersion: 1.14.4
 chartPath: '.'
 valuesRevision: HEAD
+values: |-
