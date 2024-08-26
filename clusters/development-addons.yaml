@@ -33,7 +33,6 @@ spec:
         - repoURL: "{{chartURL}}"
           chart: "{{chart}}"
           targetRevision: "{{chartVersion}}"
-          path: "{{chartPath}}"
           helm:
             # Helm releaseName resets the name of the installation
             # in the target cluster back to the expected name vs.
