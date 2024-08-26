@@ -33,14 +33,10 @@ spec:
     spec:
       project: default
       sources:
-        # Sample Helm Chart
         - repoURL: "{{chartURL}}"
           chart: "{{chart}}"
           targetRevision: "{{chartVersion}}"
           helm:
-            # Helm releaseName resets the name of the installation
-            # in the target cluster back to the expected name vs.
-            # the ArgoCD Application CRD name which prepends the cluster name
             releaseName: "{{component}}"
             ignoreMissingValueFiles: true
             valueFiles:
@@ -50,6 +46,12 @@ spec:
         - repoURL: "https://github.com/BartVB/argo-test.git"
           targetRevision: "{{valuesRevision}}"
           ref: valuesRepo
+        # Additional manifests
+        - repoURL: "https://github.com/BartVB/argo-test.git"
+          path: "/addons/{{component}}/manifests/"
+        # Override manifests if needed
+        - repoURL: "https://github.com/BartVB/argo-test.git"
+          path: "/addons/{{component}}/manifests-development/"
       destination:
         server: 'https://kubernetes.default.svc'
         namespace: '{{component}}'
