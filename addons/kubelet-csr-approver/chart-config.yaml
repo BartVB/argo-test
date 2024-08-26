@@ -1,0 +1,6 @@
+component: kubelet-csr-approver
+chart: kubelet-csr-approver
+chartURL: https://postfinance.github.io/kubelet-csr-approver
+chartVersion: 1.2.2
+chartPath: '.'
+valuesRevision: HEAD

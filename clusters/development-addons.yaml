@@ -41,17 +41,14 @@ spec:
             ignoreMissingValueFiles: true
             valueFiles:
               - "$valuesRepo/addons/{{component}}/values.yaml"
-              - "$valuesRepo/addons/{{component}}/values-development.yaml"
+              - "$valuesRepo/addons/{{component}}/values-{{environment}}.yaml"
         # Values overrides
         - repoURL: "https://github.com/BartVB/argo-test.git"
           targetRevision: "{{valuesRevision}}"
           ref: valuesRepo
         # Additional manifests
         - repoURL: "https://github.com/BartVB/argo-test.git"
-          path: "/addons/{{component}}/manifests/"
-        # Override manifests if needed
-        - repoURL: "https://github.com/BartVB/argo-test.git"
-          path: "/addons/{{component}}/manifests-development/"
+          path: "addons/{{component}}/manifests/"
       destination:
         server: 'https://kubernetes.default.svc'
         namespace: '{{component}}'
