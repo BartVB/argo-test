@@ -1,0 +1,6 @@
+component: external-dns
+chart: kong
+chartURL: https://charts.konghq.com
+chartVersion: 2.16.5
+chartPath: '.'
+valuesRevision: HEAD
