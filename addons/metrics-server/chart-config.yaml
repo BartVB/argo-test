@@ -1,0 +1,6 @@
+component: metrics-server
+chart: metrics-server
+chartURL: https://kubernetes-sigs.github.io
+chartVersion: 3.12.1
+chartPath: '.'
+valuesRevision: HEAD
