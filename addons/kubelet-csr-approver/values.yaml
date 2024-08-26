@@ -1,5 +1,5 @@
 # Required configuration item
 providerRegex: '\.bokt\.ch$'
-providerIpPrefixes: []
+providerIpPrefixes:
    - 10.0.0.0/8
    - fc00::/7
