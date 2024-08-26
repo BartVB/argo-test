@@ -34,7 +34,7 @@ spec:
               - "$valuesRepo/addons/{{component}}/values.yaml"
               - "$valuesRepo/addons/{{component}}/values-development.yaml"
         # Values overrides
-        - repoURL: "{{valuesURL}}"
+        - repoURL: "https://github.com/BartVB/argo-test.git"
           targetRevision: "{{valuesRevision}}"
           ref: valuesRepo
       destination:
